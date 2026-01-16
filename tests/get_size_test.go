@@ -31,10 +31,12 @@ func TestGetPathSize(t *testing.T) {
         },
     }
 
-	for _, tt := range tests {
-		got, err := code.GetPathSize(tt.path, false, false, false)
-		require.NoError(t, err)
-		require.Equal(t, tt.expected, got)
-	}
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            got, err := code.GetPathSize(tt.path, false, false, false)
+            require.NoError(t, err)
+            require.Equal(t, tt.expected, got)
+        })
+    }
 }
 
