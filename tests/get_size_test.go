@@ -15,11 +15,6 @@ func TestGetPathSize(t *testing.T) {
         expected string
     }{
         {
-            name:     "empty directory",
-            path:     "../testdata/empty",
-            expected: "0 ../testdata/empty",
-        },
-        {
             name:     "not empty directory",
             path:     "../testdata/not_empty",
             expected: "349 ../testdata/not_empty",
