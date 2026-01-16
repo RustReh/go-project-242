@@ -1,13 +1,14 @@
 package tests
 
-
 import (
-	"testing"
-	"code"
+    "testing"
+    "code"
+
+    "github.com/stretchr/testify/require"
 )
 
 
-func TestGetSize(t *testing.T) {
+func TestGetPathSize(t *testing.T) {
     tests := []struct {
         name     string
         path     string
@@ -33,13 +34,9 @@ func TestGetSize(t *testing.T) {
     for _, tt := range tests {
         t.Run(tt.name, func(t *testing.T) {
             got, err := code.GetPathSize(tt.path, false, false, false)
-            if err != nil {
-                t.Fatalf("GetPathSize failed: %v", err)
-            }
-
-            if got != tt.expected {
-                t.Errorf("got %q, want %q", got, tt.expected)
-            }
+            require.NoError(t, err)
+            require.Equal(t, tt.expected, got)
         })
     }
 }
+
