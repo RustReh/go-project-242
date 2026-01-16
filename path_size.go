@@ -12,7 +12,7 @@ func GetPathSize(path string, recursive, human, all bool) (string, error) {
 	}
 
 	if !info.IsDir() {
-		return fmt.Sprintf("%d\t%s", info.Size(), path), nil
+		return fmt.Sprintf("%d %s", info.Size(), path), nil
 	}
 
 	entries, err := os.ReadDir(path)
@@ -29,5 +29,5 @@ func GetPathSize(path string, recursive, human, all bool) (string, error) {
 		totalSize += entryInfo.Size()
 	}
 
-	return fmt.Sprintf("%d\t%s", totalSize, path), nil
+	return fmt.Sprintf("%d %s", totalSize, path), nil
 }
