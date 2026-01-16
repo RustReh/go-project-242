@@ -9,7 +9,7 @@ run: build
 	./bin/hexlet-path-size $(ARGS)
 
 test:
-	go test -v ./tests
+    go test -v ./...
 
 lint:
 	golangci-lint run ./...
