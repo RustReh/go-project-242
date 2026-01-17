@@ -5,6 +5,10 @@
 
 Программа для анализа размера директорий.
 
+## Демонстрация
+
+[![asciicast](https://asciinema.org/a/6CMBAh6Z6D5P55Cj.svg)](https://asciinema.org/a/6CMBAh6Z6D5P55Cj)
+
 ## Установка
 
 ```bash
