@@ -5,16 +5,22 @@ import (
 	"os"
 )
 
+const (
+    KB = 1024
+    MB = 1024 * 1024
+    GB = 1024 * 1024 * 1024
+)
+
 func GetPathSize(path string, recursive, human, all bool) (string, error) {
 	info, err := os.Lstat(path)
 	if err != nil {
 		return "", err
 	}
-
 	if !info.IsDir() {
-		return fmt.Sprintf("%d %s", info.Size(), path), nil
+		fileSize := info.Size()
+		sizeFormated := FormatSize(fileSize, human)
+		return fmt.Sprintf("%s %s", sizeFormated, path), nil
 	}
-
 	entries, err := os.ReadDir(path)
 	if err != nil {
 		return "", err
@@ -28,6 +34,39 @@ func GetPathSize(path string, recursive, human, all bool) (string, error) {
 		}
 		totalSize += entryInfo.Size()
 	}
+	sizeFormatted := FormatSize(totalSize, human)
+	return fmt.Sprintf("%s %s", sizeFormatted, path), nil
+}
 
-	return fmt.Sprintf("%d %s", totalSize, path), nil
+
+func FormatSize(size int64, human bool) string {
+    if !human {
+        return fmt.Sprintf("%dB", size)
+    }
+
+    const (
+        KB = 1024
+        MB = 1024 * 1024
+        GB = 1024 * 1024 * 1024
+        TB = 1024 * 1024 * 1024 * 1024
+        PB = 1024 * 1024 * 1024 * 1024 * 1024
+        EB = 1024 * 1024 * 1024 * 1024 * 1024 * 1024
+    )
+
+    switch {
+		case size < KB:
+			return fmt.Sprintf("%dB", size)
+		case size < MB:
+			return fmt.Sprintf("%.1fKB", float64(size)/float64(KB))
+		case size < GB:
+			return fmt.Sprintf("%.1fMB", float64(size)/float64(MB))
+		case size < TB:
+			return fmt.Sprintf("%.1fGB", float64(size)/float64(GB))
+		case size < PB:
+			return fmt.Sprintf("%.1fTB", float64(size)/float64(TB))
+		case size < EB:
+			return fmt.Sprintf("%.1fPB", float64(size)/float64(PB))
+		default:
+			return fmt.Sprintf("%.1fEB", float64(size)/float64(EB))
+    }
 }
