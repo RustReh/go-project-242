@@ -14,9 +14,10 @@ func TestGetPathSize(t *testing.T) {
         path     string
         expected string
         human bool
+        all bool
     }{
         {
-            name:     "not empty directory",
+            name:     "not empty directory without hidde",
             path:     "../testdata/not_empty",
             expected: "1048576B ../testdata/not_empty",
         },
@@ -31,11 +32,24 @@ func TestGetPathSize(t *testing.T) {
             expected: "1.0MB ../testdata/not_empty",
             human: true,
         },
+        {
+            name:     "not empty directory with human and all",
+            path:     "../testdata/not_empty",
+            expected: "2.9MB ../testdata/not_empty",
+            human: true,
+            all: true,
+        },
+        {
+            name:     "not empty directory with all",
+            path:     "../testdata/not_empty",
+            expected: "3053448B ../testdata/not_empty",
+            all: true,
+        },
     }
 
     for _, tt := range tests {
         t.Run(tt.name, func(t *testing.T) {
-            got, err := code.GetPathSize(tt.path, false, tt.human, false)
+            got, err := code.GetPathSize(tt.path, false, tt.human, tt.all)
             require.NoError(t, err)
             require.Equal(t, tt.expected, got)
         })
