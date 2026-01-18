@@ -15,8 +15,7 @@ func GetPathSize(path string, recursive, human, all bool) (string, error) {
 	}
 	if !info.IsDir() {
 		fileSize := info.Size()
-		sizeFormated := FormatSize(fileSize, human)
-		return fmt.Sprintf("%s", sizeFormated), nil
+		return FormatSize(fileSize, human), nil
 	}
 
 	totalSize, err := calculateDirSize(path, recursive, all)
@@ -24,8 +23,7 @@ func GetPathSize(path string, recursive, human, all bool) (string, error) {
 		return "", err
 	}
 
-	sizeFormatted := FormatSize(totalSize, human)
-	return fmt.Sprintf("%s", sizeFormatted), nil
+	return FormatSize(totalSize, human), nil
 }
 
 func calculateDirSize(path string, recursive, all bool) (int64, error) {
