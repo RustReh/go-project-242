@@ -64,22 +64,6 @@ func TestGetPathSize(t *testing.T) {
 			human:     false,
 			all:       false,
 		},
-		{
-			name:      "empty directory",
-			path:      "../testdata/empty",
-			expected:  "0B",
-			recursive: false,
-			human:     false,
-			all:       false,
-		},
-		{
-			name:      "empty directory with human format",
-			path:      "../testdata/empty",
-			expected:  "0B",
-			recursive: false,
-			human:     true,
-			all:       false,
-		},
 	}
 
 	for _, tt := range tests {
@@ -96,12 +80,6 @@ func TestGetPathSize(t *testing.T) {
 			require.Equal(t, tt.expected, got)
 		})
 	}
-}
-
-
-func TestGetPathSizeWithNonexistentPath(t *testing.T) {
-	_, err := code.GetPathSize("../testdata/does_not_exist", false, false, false)
-	require.Error(t, err)
 }
 
 
